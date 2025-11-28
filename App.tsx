@@ -27,30 +27,39 @@ import {
 const PROJECTS: Project[] = [
   {
     id: 'p1',
-    name: 'nebula_orchestrator',
-    description: 'Distributed container orchestration engine written in Go. Handles 10k+ concurrent nodes with sub-50ms latency.',
-    techStack: ['Go', 'gRPC', 'Etcd', 'Docker SDK'],
+    name: 'cadet_information_system',
+    description: 'Centralized cadet lifecycle management core. Handles high-concurrency enrollment transactions, tuition processing, and administrative administrative workflows for the academy.',
+    techStack: ['PHP', 'Laravel', 'MySQL', 'Bootstrap'],
     status: 'Deployed',
-    endpoint: 'api.nebula.dev/v1/cluster',
-    latency: '42ms'
+    endpoint: 'Philippine Military Academy',
+    latency: '13ms'
   },
   {
     id: 'p2',
-    name: 'quantum_cache',
-    description: 'High-performance in-memory key-value store with eventual consistency guarantees and persistent snapshots.',
-    techStack: ['Rust', 'Tokio', 'RocksDB'],
-    status: 'In Development',
-    endpoint: 'localhost:8080',
-    latency: '12ms'
+    name: 'intellidocs',
+    description: 'Enterprise document automation engine for SLU. Features dynamic template rendering, version control, print spooling, and real-time document editing capabilities.',
+    techStack: ['React', 'Node.js', 'MongoDB', 'WebSocket'],
+    status: 'Deployed',
+    endpoint: 'Saint Louis University',
+    latency: '15ms'
   },
   {
     id: 'p3',
-    name: 'void_stream',
-    description: 'Real-time financial data pipeline processing 1M events/sec. Built for fault tolerance and zero data loss.',
-    techStack: ['Kafka', 'Apache Flink', 'Java'],
-    status: 'Archived',
-    endpoint: 'stream.void.finance',
-    latency: '89ms'
+    name: 'kasalo_kusina_frontend',
+    description: 'High-performance frontend interface for a culinary sharing ecosystem. Optimized for user engagement ("vibe-coded") with modular component architecture.',
+    techStack: ['ReactJS', 'Tailwind', 'Vite'],
+    status: 'In Development',
+    endpoint: 'localhost:3001',
+    latency: '8ms'
+  },
+  {
+    id: 'p4',
+    name: 'kasalo_kusina_backend',
+    description: 'Scalable RESTful API service supporting the culinary platform. Implements complex query logic, secure authentication gateways, and optimized data retrieval.',
+    techStack: ['NodeJS', 'Express', 'MySQL', 'JWT'],
+    status: 'In Development',
+    endpoint: 'localhost:3000',
+    latency: '5ms'
   }
 ];
 
