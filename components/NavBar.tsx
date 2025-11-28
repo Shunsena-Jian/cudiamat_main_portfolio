@@ -18,7 +18,7 @@ export const NavBar: React.FC<NavBarProps> = ({ currentSection, onNavigate }) =>
     <nav className="fixed top-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-md border-b border-gray-800 h-14 flex items-center px-4 md:px-8">
       <div className="flex items-center gap-1 md:gap-4 overflow-x-auto no-scrollbar">
         <div className="text-green-500 font-mono font-bold mr-4 hidden md:block">
-          dev@portfolio:~$
+          jian_cudiamat@portfolio:~$
         </div>
         
         {items.map((item) => (
