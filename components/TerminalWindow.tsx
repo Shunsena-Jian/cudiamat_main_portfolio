@@ -31,7 +31,7 @@ export const TerminalWindow: React.FC<TerminalWindowProps> = ({
           <div className="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-colors" />
         </div>
         <div className="text-xs font-mono text-gray-400 select-none flex items-center gap-2">
-          <span className="text-blue-400">root@dev-portfolio</span>
+          <span className="text-blue-400">jian_cudiamat@portfolio</span>
           <span>:</span>
           <span className="text-gray-300">~/{title}</span>
         </div>

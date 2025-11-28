@@ -222,7 +222,7 @@ export default function App() {
                    
                    {/* Info */}
                    <div className="space-y-1.5 text-xs md:text-sm">
-                     <div><span className="text-green-500">dev</span>@<span className="text-blue-500">portfolio</span></div>
+                     <div><span className="text-green-500">jian_cudiamat</span>@<span className="text-blue-500">portfolio</span></div>
                      <div className="text-gray-600">-------------------</div>
                      <div><span className="text-purple-400 font-bold">OS</span>: Arch Linux x86_64</div>
                      <div><span className="text-purple-400 font-bold">Host</span>: Backend Mainframe</div>
