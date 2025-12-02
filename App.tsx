@@ -138,16 +138,32 @@ const SKILLS_CATEGORIES = [
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [mounted, setMounted] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // Initialize dark mode class on HTML element
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-terminal-black text-gray-300 font-mono pb-20 selection:bg-green-900 selection:text-white">
-      <NavBar currentSection={activeSection} onNavigate={setActiveSection} />
+    <div className="min-h-screen bg-gray-50 dark:bg-terminal-black text-gray-900 dark:text-gray-300 font-mono pb-20 selection:bg-green-200 dark:selection:bg-green-900 dark:selection:text-white transition-colors duration-300">
+      <NavBar 
+        currentSection={activeSection} 
+        onNavigate={setActiveSection} 
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
+      />
 
       <main className="container mx-auto px-4 pt-24 max-w-5xl">
         
@@ -156,16 +172,16 @@ export default function App() {
           <div className="space-y-12">
             <section className="min-h-[50vh] flex flex-col justify-center">
               <div className="space-y-4">
-                <div className="inline-block bg-green-900/20 border border-green-800 text-green-400 px-3 py-1 rounded text-xs mb-4">
+                <div className="inline-block bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-3 py-1 rounded text-xs mb-4">
                   <span className="animate-pulse">●</span> JIAN_CUDIAMAT | SYSTEM_READY
                 </div>
-                <h1 className="text-4xl md:text-7xl font-bold text-gray-100 tracking-tighter">
+                <h1 className="text-4xl md:text-7xl font-bold text-gray-900 dark:text-gray-100 tracking-tighter">
                   <TypewriterText text="_Hello, World." speed={50} />
                 </h1>
-                <h2 className="text-xl md:text-2xl text-gray-500">
-                  I build <span className="text-green-500">scalable backends</span> and <span className="text-blue-500">distributed systems</span>.
+                <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-500">
+                  I build <span className="text-green-600 dark:text-green-500">scalable backends</span> and <span className="text-blue-600 dark:text-blue-500">distributed systems</span>.
                 </h2>
-                <div className="max-w-xl text-gray-400 leading-relaxed pt-4 border-l-2 border-gray-800 pl-6">
+                <div className="max-w-xl text-gray-600 dark:text-gray-400 leading-relaxed pt-4 border-l-2 border-gray-300 dark:border-gray-800 pl-6">
                   <p>
                     Specializing in robust API design, high-concurrency architecture, and database optimization. 
                     I turn coffee into clean, efficient code.
@@ -174,14 +190,14 @@ export default function App() {
                 <div className="flex gap-4 pt-6">
                    <button 
                      onClick={() => setActiveSection('projects')}
-                     className="px-6 py-3 bg-green-600 hover:bg-green-500 text-black font-bold rounded transition-colors flex items-center gap-2"
+                     className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white dark:text-black font-bold rounded transition-colors flex items-center gap-2 shadow-lg shadow-green-600/20"
                    >
                      <Terminal size={18} />
                      View Projects
                    </button>
                    <button 
                      onClick={() => setActiveSection('contact')}
-                     className="px-6 py-3 border border-gray-700 hover:border-gray-500 text-gray-300 rounded transition-colors"
+                     className="px-6 py-3 border border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 rounded transition-colors"
                    >
                      Contact.sh
                    </button>
@@ -192,24 +208,24 @@ export default function App() {
             {/* SYSTEM INFO (REPLACES AI) */}
             <section className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <Cpu className="text-green-500" />
                   System Architecture
                 </h3>
-                <p className="text-gray-400 mb-6">
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
                   My development environment is tuned for maximum efficiency. 
                   I advocate for open-source tools, linux-based workflows, and automated CI/CD pipelines.
                 </p>
-                <div className="flex flex-wrap gap-2 text-xs text-gray-500 font-mono">
-                  <span className="bg-gray-900 px-2 py-1 rounded border border-gray-800">os: arch_linux</span>
-                  <span className="bg-gray-900 px-2 py-1 rounded border border-gray-800">shell: zsh</span>
-                  <span className="bg-gray-900 px-2 py-1 rounded border border-gray-800">editor: neovim</span>
+                <div className="flex flex-wrap gap-2 text-xs text-gray-600 dark:text-gray-500 font-mono">
+                  <span className="bg-gray-200 dark:bg-gray-900 px-2 py-1 rounded border border-gray-300 dark:border-gray-800">os: arch_linux</span>
+                  <span className="bg-gray-200 dark:bg-gray-900 px-2 py-1 rounded border border-gray-300 dark:border-gray-800">shell: zsh</span>
+                  <span className="bg-gray-200 dark:bg-gray-900 px-2 py-1 rounded border border-gray-300 dark:border-gray-800">editor: neovim</span>
                 </div>
               </div>
-              <TerminalWindow title="neofetch" className="min-h-[300px] flex items-center justify-center">
+              <TerminalWindow title="neofetch" className="min-h-[300px] flex items-center justify-center bg-white dark:bg-[#0c0c0c]">
                  <div className="w-full flex gap-4 font-mono text-sm p-2">
                    {/* Fake ASCII Art */}
-                   <div className="hidden sm:block text-green-500 font-bold select-none opacity-80 leading-tight">
+                   <div className="hidden sm:block text-green-600 dark:text-green-500 font-bold select-none opacity-80 leading-tight">
 <pre>{`       /\\
       /  \\
      /    \\
@@ -222,19 +238,19 @@ export default function App() {
                    
                    {/* Info */}
                    <div className="space-y-1.5 text-xs md:text-sm">
-                     <div><span className="text-green-500">jian_cudiamat</span>@<span className="text-blue-500">portfolio</span></div>
-                     <div className="text-gray-600">-------------------</div>
-                     <div><span className="text-purple-400 font-bold">OS</span>: Arch Linux x86_64</div>
-                     <div><span className="text-purple-400 font-bold">Host</span>: Backend Mainframe</div>
-                     <div><span className="text-purple-400 font-bold">Kernel</span>: 6.8.9-arch1-1</div>
-                     <div><span className="text-purple-400 font-bold">Uptime</span>: 1337 mins</div>
-                     <div><span className="text-purple-400 font-bold">Shell</span>: zsh 5.9</div>
-                     <div><span className="text-purple-400 font-bold">CPU</span>: Neural Engine v9</div>
-                     <div><span className="text-purple-400 font-bold">Memory</span>: 32768MB / 65536MB</div>
+                     <div><span className="text-green-600 dark:text-green-500">jian_cudiamat</span>@<span className="text-blue-600 dark:text-blue-500">portfolio</span></div>
+                     <div className="text-gray-400 dark:text-gray-600">-------------------</div>
+                     <div><span className="text-purple-600 dark:text-purple-400 font-bold">OS</span>: Arch Linux x86_64</div>
+                     <div><span className="text-purple-600 dark:text-purple-400 font-bold">Host</span>: Backend Mainframe</div>
+                     <div><span className="text-purple-600 dark:text-purple-400 font-bold">Kernel</span>: 6.8.9-arch1-1</div>
+                     <div><span className="text-purple-600 dark:text-purple-400 font-bold">Uptime</span>: 1337 mins</div>
+                     <div><span className="text-purple-600 dark:text-purple-400 font-bold">Shell</span>: zsh 5.9</div>
+                     <div><span className="text-purple-600 dark:text-purple-400 font-bold">CPU</span>: Neural Engine v9</div>
+                     <div><span className="text-purple-600 dark:text-purple-400 font-bold">Memory</span>: 32768MB / 65536MB</div>
                      
                      {/* Color blocks */}
                      <div className="pt-3 flex gap-1.5">
-                       <span className="w-3 h-3 bg-black rounded-sm"></span>
+                       <span className="w-3 h-3 bg-black dark:bg-black rounded-sm"></span>
                        <span className="w-3 h-3 bg-red-500 rounded-sm"></span>
                        <span className="w-3 h-3 bg-green-500 rounded-sm"></span>
                        <span className="w-3 h-3 bg-yellow-500 rounded-sm"></span>
@@ -253,11 +269,11 @@ export default function App() {
         {activeSection === 'projects' && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <header className="mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
                  <Folder className="text-blue-500" />
                  /projects
               </h2>
-              <p className="text-gray-500 text-sm">Listing directories... found {PROJECTS.length} results.</p>
+              <p className="text-gray-600 dark:text-gray-500 text-sm">Listing directories... found {PROJECTS.length} results.</p>
             </header>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -265,34 +281,36 @@ export default function App() {
                 <TerminalWindow key={project.id} title={`cat ${project.name}.json`}>
                   <div className="space-y-4">
                     <div className="flex justify-between items-start">
-                       <h3 className="text-xl font-bold text-green-400">{project.name}</h3>
+                       <h3 className="text-xl font-bold text-green-600 dark:text-green-400">{project.name}</h3>
                        <span className={`text-xs px-2 py-1 rounded border ${
-                         project.status === 'Deployed' ? 'border-green-800 bg-green-900/20 text-green-400' : 
-                         project.status === 'In Development' ? 'border-yellow-800 bg-yellow-900/20 text-yellow-400' :
-                         'border-gray-800 bg-gray-900 text-gray-500'
+                         project.status === 'Deployed' 
+                            ? 'border-green-200 bg-green-100 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400' 
+                            : project.status === 'In Development' 
+                            ? 'border-yellow-200 bg-yellow-100 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+                            : 'border-gray-200 bg-gray-100 text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-500'
                        }`}>
                          {project.status.toUpperCase()}
                        </span>
                     </div>
                     
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                       {project.description}
                     </p>
 
-                    <div className="bg-black/50 p-3 rounded border border-gray-800 font-mono text-xs text-gray-300">
+                    <div className="bg-gray-50 dark:bg-black/50 p-3 rounded border border-gray-200 dark:border-gray-800 font-mono text-xs text-gray-700 dark:text-gray-300">
                       <div className="flex justify-between mb-2">
-                         <span className="text-blue-400">Endpoint:</span>
+                         <span className="text-blue-600 dark:text-blue-400">Endpoint:</span>
                          <span>{project.endpoint}</span>
                       </div>
                       <div className="flex justify-between">
-                         <span className="text-purple-400">Avg Latency:</span>
+                         <span className="text-purple-600 dark:text-purple-400">Avg Latency:</span>
                          <span>{project.latency}</span>
                       </div>
                     </div>
 
                     <div className="flex flex-wrap gap-2 pt-2">
                       {project.techStack.map(tech => (
-                        <span key={tech} className="text-xs text-gray-500 border border-gray-800 px-2 py-1 rounded">
+                        <span key={tech} className="text-xs text-gray-600 dark:text-gray-500 border border-gray-300 dark:border-gray-800 px-2 py-1 rounded">
                           {tech}
                         </span>
                       ))}
@@ -308,14 +326,14 @@ export default function App() {
         {activeSection === 'experience' && (
           <div className="space-y-8">
             <header className="mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
-                 <Server className="text-yellow-500" />
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                 <Server className="text-yellow-600 dark:text-yellow-500" />
                  /var/log/career.log
               </h2>
-              <p className="text-gray-500 text-sm">Tail output of system logs...</p>
+              <p className="text-gray-600 dark:text-gray-500 text-sm">Tail output of system logs...</p>
             </header>
 
-            <div className="relative border-l border-gray-800 ml-4 space-y-12">
+            <div className="relative border-l border-gray-300 dark:border-gray-800 ml-4 space-y-12">
               {EXPERIENCE.map((exp, idx) => (
                 <motion.div 
                   key={exp.id}
@@ -325,15 +343,15 @@ export default function App() {
                   transition={{ duration: 0.5, delay: idx * 0.2 }}
                   className="relative pl-8"
                 >
-                  <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-gray-800 border border-gray-600" />
+                  <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-800 border border-gray-400 dark:border-gray-600" />
                   
                   <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
-                    <h3 className="text-xl font-bold text-white">{exp.role}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
                     <span className="text-gray-500 font-mono text-sm">{exp.period}</span>
                   </div>
-                  <div className="text-green-500 font-mono mb-4">@ {exp.company}</div>
+                  <div className="text-green-600 dark:text-green-500 font-mono mb-4">@ {exp.company}</div>
                   
-                  <div className="bg-[#0c0c0c] border border-gray-800 rounded p-4 font-mono text-sm overflow-hidden">
+                  <div className="bg-white dark:bg-[#0c0c0c] border border-gray-200 dark:border-gray-800 rounded p-4 font-mono text-sm overflow-hidden shadow-sm">
                     {exp.logs.map((log, i) => (
                       <motion.div 
                         key={i} 
@@ -343,12 +361,12 @@ export default function App() {
                         transition={{ duration: 0.3, delay: 0.2 + (i * 0.1) }}
                         className="mb-2 last:mb-0"
                       >
-                        <span className="text-gray-600 mr-2">{idx * 100 + i + 1}</span>
+                        <span className="text-gray-400 dark:text-gray-600 mr-2">{idx * 100 + i + 1}</span>
                         <span className={
-                          log.includes('[INFO]') ? 'text-blue-400' :
-                          log.includes('[SUCCESS]') ? 'text-green-400' :
-                          log.includes('[WARN]') ? 'text-yellow-400' :
-                          log.includes('[DEBUG]') ? 'text-purple-400' : 'text-gray-300'
+                          log.includes('[INFO]') ? 'text-blue-600 dark:text-blue-400' :
+                          log.includes('[SUCCESS]') ? 'text-green-600 dark:text-green-400' :
+                          log.includes('[WARN]') ? 'text-yellow-600 dark:text-yellow-400' :
+                          log.includes('[DEBUG]') ? 'text-purple-600 dark:text-purple-400' : 'text-gray-700 dark:text-gray-300'
                         }>{log}</span>
                       </motion.div>
                     ))}
@@ -359,15 +377,15 @@ export default function App() {
 
             {/* Skills Grid */}
             <div className="mt-16">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <HardDrive className="text-purple-500" />
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                <HardDrive className="text-purple-600 dark:text-purple-500" />
                 System Resources
               </h3>
               
               <div className="space-y-8">
                 {SKILLS_CATEGORIES.map((category, catIdx) => (
                   <div key={category.id}>
-                    <div className="flex items-center gap-2 mb-4 text-green-400/80 text-sm font-bold uppercase tracking-wider border-b border-gray-800 pb-1 w-max pr-4">
+                    <div className="flex items-center gap-2 mb-4 text-green-700 dark:text-green-400/80 text-sm font-bold uppercase tracking-wider border-b border-gray-300 dark:border-gray-800 pb-1 w-max pr-4">
                       {category.icon}
                       {category.title}
                     </div>
@@ -379,14 +397,14 @@ export default function App() {
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.3, delay: (catIdx * 0.1) + (i * 0.05) }}
-                          className="bg-gray-900/50 border border-gray-800 p-3 rounded flex flex-col gap-2 hover:border-green-500/50 transition-colors group relative overflow-hidden"
+                          className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 p-3 rounded flex flex-col gap-2 hover:border-green-500/50 transition-colors group relative overflow-hidden shadow-sm"
                         >
                           <div className="flex justify-between items-end mb-1">
-                            <span className="font-bold text-gray-200 text-sm group-hover:text-green-400 transition-colors">{skill.name}</span>
+                            <span className="font-bold text-gray-700 dark:text-gray-200 text-sm group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">{skill.name}</span>
                             <span className="text-xs text-gray-500 font-mono">{skill.level}</span>
                           </div>
                           
-                          <div className="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
+                          <div className="w-full bg-gray-200 dark:bg-gray-800 h-1.5 rounded-full overflow-hidden">
                             <motion.div 
                               initial={{ width: 0 }}
                               whileInView={{ width: skill.level }}
@@ -414,20 +432,20 @@ export default function App() {
           <div className="max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
              <TerminalWindow title="send_message.sh">
                 <div className="space-y-6">
-                  <div className="text-gray-400 text-sm">
+                  <div className="text-gray-500 dark:text-gray-400 text-sm">
                     <p>initiating secure channel...</p>
                     <p>handshake established.</p>
                   </div>
                   
                   <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                     <div className="space-y-1">
-                      <label className="text-xs text-green-500 uppercase">Input: Email</label>
-                      <input type="email" className="w-full bg-black border border-gray-700 p-2 text-gray-300 focus:border-green-500 focus:outline-none rounded-sm" placeholder="user@domain.com" />
+                      <label className="text-xs text-green-600 dark:text-green-500 uppercase">Input: Email</label>
+                      <input type="email" className="w-full bg-gray-50 dark:bg-black border border-gray-300 dark:border-gray-700 p-2 text-gray-900 dark:text-gray-300 focus:border-green-500 focus:outline-none rounded-sm transition-colors" placeholder="user@domain.com" />
                     </div>
                     
                     <div className="space-y-1">
-                      <label className="text-xs text-green-500 uppercase">Input: Message</label>
-                      <textarea rows={5} className="w-full bg-black border border-gray-700 p-2 text-gray-300 focus:border-green-500 focus:outline-none rounded-sm" placeholder="Payload content..." />
+                      <label className="text-xs text-green-600 dark:text-green-500 uppercase">Input: Message</label>
+                      <textarea rows={5} className="w-full bg-gray-50 dark:bg-black border border-gray-300 dark:border-gray-700 p-2 text-gray-900 dark:text-gray-300 focus:border-green-500 focus:outline-none rounded-sm transition-colors" placeholder="Payload content..." />
                     </div>
 
                     <button className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-sm flex items-center justify-center gap-2 transition-all">
@@ -436,16 +454,16 @@ export default function App() {
                     </button>
                   </form>
 
-                  <div className="border-t border-gray-800 pt-6 flex justify-center gap-8">
-                    <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors">
+                  <div className="border-t border-gray-200 dark:border-gray-800 pt-6 flex justify-center gap-8">
+                    <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-black dark:hover:text-white transition-colors">
                       <Github size={20} />
                       <span>github</span>
                     </a>
-                    <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-blue-400 transition-colors">
+                    <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                       <Linkedin size={20} />
                       <span>linkedin</span>
                     </a>
-                    <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-green-400 transition-colors">
+                    <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                       <Mail size={20} />
                       <span>email</span>
                     </a>
@@ -458,9 +476,9 @@ export default function App() {
       </main>
 
       {/* Footer Status Bar */}
-      <footer className="fixed bottom-0 w-full bg-black border-t border-gray-800 text-xs font-mono text-gray-600 py-1 px-4 flex justify-between z-50">
+      <footer className="fixed bottom-0 w-full bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 text-xs font-mono text-gray-500 dark:text-gray-600 py-1 px-4 flex justify-between z-50 transition-colors duration-300">
         <div className="flex gap-4">
-           <span>STATUS: <span className="text-green-500">ONLINE</span></span>
+           <span>STATUS: <span className="text-green-600 dark:text-green-500">ONLINE</span></span>
            <span className="hidden md:inline">UPTIME: 99.99%</span>
         </div>
         <div className="flex gap-4">
